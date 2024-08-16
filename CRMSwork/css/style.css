@@ -1,0 +1,928 @@
+body {
+    font-family: "游ゴシック", "Yu Gothic", "游ゴシック体", "YuGothic", sans-serif;
+}
+.main-wrapper {
+  width: 100%;
+}
+
+
+/*     !共通ヘッダー     */
+
+
+.main-header  {
+  width: 100%;
+  height: 100px;
+  background-color: #1e1e3a;
+  left: 0px;
+  top: 0px;
+  position: fixed; /*スクロールは無いけどfixedで位置を固定*/
+  z-index: 1000;
+
+  display: flex;  /*子要素をフレックス化*/
+  align-items: center;
+  justify-content: space-between; /*ボックスをそれぞれ等間隔に離して配置 |____|_|_|_| */
+}
+
+
+.main-header .logo {
+  width: 60%;
+  white-space: nowrap;  /* ボックスが小さくなることによる字の折り返しを無くす */
+  text-align: center;   /* 子要素のテキスト(h1)をボックス中央に置く */
+  line-height: 100px;   /* 文字の高さが合わないので調整をする */
+
+  background-color: #0c0c38;
+  
+  h1 {
+    font-size: 25px;
+    font-weight: 600;   /* 太字化 */
+
+    a {
+      display: block;  /* aタグをブロック化して以下で高さと幅を調整できる */
+      height: 100px;
+      width: 100%;
+    
+      color: #fff;
+      cursor: pointer;  /* aタグブロック上にマウスが来ると指カーソルに変化 */
+      text-decoration: none;
+    }
+  }
+}
+
+.main-header  .logo > h1 > a:hover {
+  background-color: #0D0D4D;    /* aタグブロック上にマウスが来ると色（背景色）を変化 */
+}
+
+.main-header > nav {
+  width: 40%;
+}
+
+.main-header > nav > ul {
+  display: flex;  /* 子要素(li)をフレックスボックス化 */
+  justify-content: flex-end;    /* ボックスの並びを右端から始まるように */
+}
+
+.main-header > nav > ul > li {
+  width: 40%;
+  height: 100%;  /* liボックスの高さをヘッダーの高さに調整 */
+  font-size: 20px;
+  text-align: center;   /* テキストの位置調整 */
+  line-height: 100px;
+  white-space: nowrap;   /* ボックスが小さくなることによる字の折り返しを無くす */
+
+}
+
+.main-header > nav > ul > li > a {
+  display: block;  /* aタグの範囲を作成 */
+  height: 100%;   /* aタグの範囲調整 */
+  width: 100%;
+
+  color: #fff;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.main-header > nav > ul > li > a:hover {
+  background-color: #05051F;
+}
+
+.header_menu-child {
+  background-color: #05051F;    /* 現在該当ページにいる場合ヘッダーの色を変えて分かりやすいように */
+}
+
+
+/*      /共通ヘッダー     */
+
+
+.main-content {
+  width: 100%;
+  padding-top: 200px;
+  min-height: 880px;
+  background-color: #05051F;
+  background-size: auto;
+}
+
+/*     トップ画面     */
+
+.main-content .content-top {
+  height: 100%;
+  width: 85%;
+  margin: 0 auto;
+}
+
+.content_box {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.content_box .content-header h2 { /* ページ固有クラスの.content_boxから指名しないと他にも伝播した */
+  height: 20px;
+  font-size: 20px;
+  color: #fff;
+  border-left: 4px solid #fff;
+  padding-left: 10px;
+
+  margin-bottom: 10px;
+}
+
+.content_box .update-record-box {
+  width: 700px;
+  height: 400px;
+  padding: 15px;      /* ボックス内の端から少し離す */
+  overflow-y: scroll; /* 行がボックスを超過した場合スクロールボックスにする */
+  background-color: #12122D;
+
+  li {
+  color: #5074b8;
+  margin-bottom: 10px;
+  }
+}
+
+.update-record-box::-webkit-scrollbar-track { 
+  background-color: #05051F;  /* スクロールバーの背景色を変える */
+}
+
+.update-record-box::-webkit-scrollbar {
+  width: 5px; /* スクロールバーの水平範囲を変える */
+}
+
+.update-record-box::-webkit-scrollbar-thumb {
+  background-color: #2e2e55;  /* 掴むスクロールバー自体の色を変える */
+}
+
+.annotation {
+  width: 50%;
+  margin-top: 100px;
+  color: #fff;
+}
+
+/*     /トップ画面     */
+
+
+
+/*     検索画面     */
+
+.content-search {
+  width: 85%;
+  margin: 0 auto;
+}
+
+.content-search .content-header {
+  width: 20%;
+  height: 40px;
+  background-color: #1e1e3a;
+  border-radius: 5px; /* 箱の角を少し丸く */
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+.content-search .content-header h2 {
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  line-height: 40px;
+}
+
+.search-form__label { /* 検索見出しを一気に選択し、フレックス化 */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  margin-top: 5px;
+}
+
+.search-form__label > h3 { /* 検索画面のh3を一気に編集 */
+  width: 20%;
+  height: 30px;
+  color: #fff;
+  text-align: center;
+  line-height: 30px;
+  margin-right: 5px;
+  background-color: #1e1e3a;
+}
+
+.search-form__label .form__box {  /* インプットボックスの背景部分を調整 */
+  width: 80%;
+  height: 30px;
+  color: #fff;
+  text-align: center;
+  line-height: 30px;
+  background-color: #2e2e55;
+
+  input { /* インプットボックスの幅や高さ、背景色や入力された字の色を調整 */
+    width: 30%;
+    height: 23px;
+    float: left; /* form__box内の左端に寄るように */
+
+    border: none;
+    border-radius: 3px;
+    background: #12122D;
+    color: #ffffff;
+    
+    margin-left: 2px;
+    margin-top: 2.5px;
+  }
+
+  p {
+    font-size: 12px;
+    float: left; /* ボックス内で左寄せになるように、既にinputがあるのでその横に */
+    margin-left: 10px;
+  }
+}
+
+.search-form__label .form__box-gender {
+  width: 80%;
+  height: 30px;
+  color: #fff;
+  line-height: 30px;
+  background-color: #2e2e55;
+
+  input { /* ラジオボタンの大きさ、位置調整 */
+    width: 3%;
+    height: 19px;
+
+    margin-left: 2px;
+    margin-top: 5px;
+  }
+}
+
+.search-form__label .form__box-birth_date {
+  width: 80%;
+  height: 30px;
+  color: #fff;
+  text-align: center;
+  line-height: 30px;
+  background-color: #2e2e55;
+
+  display: flex;  /* inputボックスが二個あるためフレックスを使って横並びにする */
+
+  p {
+    width: 30px;
+    text-align: center;
+  }
+
+  input {
+    width: 15%;
+    height: 26px;
+    float: left;
+
+    border-radius: 3px;
+    border: none;
+    color: #fff;
+    background-color: #12122D;
+    margin-left: 2px;
+    margin-top: 2.25px;
+  }
+}
+
+.company-select-box {
+  width: 20%;
+  height: 25px;
+  float: left;
+
+  border-radius: 3px;
+  border: none;
+  background-color: #12122D;
+  color: #fff;
+  margin-left: 2px;
+  margin-top: 2.5px;
+}
+
+.content-search .search-form__submit {
+  width: 30%;
+  height: 40px;
+  margin: 0 auto;
+  margin-top: 20px;
+
+  input {
+    width: 100%;
+    height: 100%;
+    font-size: 20px;
+    line-height: 10px;
+    
+    border-color: #425a92;
+    border: none;
+    color: #fff;
+    background-color: #1e1e3a;
+  }
+}
+
+.content-search .search-form__submit > input:hover {
+  background-color: #0D0D4D;
+  cursor: pointer;
+}
+
+/*     /検索画面     */
+
+
+
+
+/*     一覧画面     */
+
+.content-list { /* 検索と一覧の間に線を引きたかったため作成 */
+  width: 100%;
+  margin-top: 10px;
+  padding-top: 20px;
+  border-top: 1px solid #1f1a49;
+}
+
+.content-list .content-list-box {
+  width: 85%;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column; /* 要素を縦に並べて表示するため */
+}
+
+.content-list-box .list-header {
+  width: 20%;
+  height: 40px;
+  background-color: #1e1e3a;
+  border-radius: 5px;
+  margin: 0 auto;
+}
+
+.content-list-box .list-header h2 {
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  line-height: 40px;
+}
+
+/* 一覧が表示されるボックス */
+
+.content-list .table-box {
+  margin-top: 20px;
+  width: 100%;
+  height: 400px;
+  overflow-y: scroll; /* 範囲超過時スクロールボックス化 */
+
+  display: flex;
+  flex-direction: column;
+}
+
+.table-box::-webkit-scrollbar-track {
+  background-color: #05051F;
+}
+
+.table-box::-webkit-scrollbar {
+  width: 5px;
+}
+
+.table-box::-webkit-scrollbar-thumb {
+  background-color: #2e2e55;
+}
+
+/* 一覧表示ボックスの固定ヘッダー */
+
+.list-table-header {
+  width: 100%;
+  height: 60x;
+  text-align: center;
+  line-height: 28px;
+  position: sticky; /* 位置の固定 */
+  top: 0; /* 上部0地点に常に表示 */
+  z-index: 900;
+
+  color: #fff;
+  background-color: #171736;
+}
+
+.list-table-header > table {
+  width: 100%;
+}
+
+.list-table-header table tr th {
+  border-left: 1px solid #000000;
+  border-bottom: 1px solid #05051F;
+  border-right: 1px solid #05051F;
+  vertical-align: middle; /* テーブル内の文字を垂直に中央に配置 */
+  word-break: break-all;  /* 幅が小さくなった際に英数字だけ折り返さない現象を無効化 */
+}
+
+/* テーブル内各要素をクラス分けして個別に幅の調整 */
+
+.table-id {
+  width: 6%;
+}
+
+.table-name {
+  width: 7%;
+}
+
+.table-company {
+  width: 10%;
+}
+
+.table-mail_tel {
+  width: 15%;
+}
+
+.table-new_last {
+  width: 7%;
+}
+
+.table-edit-header {
+  width: 3%;
+}
+
+.table-delete-header {
+  width: 3%;
+}
+
+.table-edit {
+  width: 3%;
+  height: 0;
+
+  a {
+    height: 100%;
+    display: flex;  /* aタグ範囲調整用 */
+    align-items: center;
+    justify-content: center;
+
+    word-wrap:break-word; /* 文字が折り返すように */
+    color: #ffffff;
+    cursor: pointer;
+    text-decoration: none;
+
+    background-color: #233661;
+  }
+}
+
+.table-edit a:hover {
+  background-color: #121244;
+}
+
+.table-delete {
+  width: 3%;
+  height: 0;
+
+  a {
+    height: 100%;
+    display: flex;  /* aタグ範囲調整用 */
+    align-items: center;
+    justify-content: center;
+
+    word-wrap:break-word; /* 文字が折り返すように */
+    color: #ffffff;
+    cursor: pointer;
+    text-decoration: none;
+    
+    background-color: #660d0d;
+  }
+}
+
+.table-delete a:hover {
+  background-color: #121244;
+}
+
+.content-list-box .list-table {
+  color: #e0e0e0;
+  width: 100%;
+}
+
+.list-table-child1 {
+  width: 100%;
+  height: 40px;
+
+  background-color: #12122D;
+}
+
+.list-table-child1 td {
+  border: 1px solid #050518;
+  vertical-align: middle;
+  text-align: center;
+  word-break: break-all;
+}
+
+/*     /一覧画面     */
+
+
+/*                   ///////以下は登録画面////////                  */
+
+.content-registration {
+  width: 85%;
+  margin: 0 auto;
+}
+
+.content-registration .content-header {
+  width: 20%;
+  height: 40px;
+  background-color: #1e1e3a;
+  border-radius: 5px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+.content-registration .content-header h2 {
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  line-height: 40px;
+}
+
+
+
+.registration-form__label {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  margin-top: 5px;
+}
+
+.registration-form__label > h3 {
+  width: 20%;
+  height: 30px;
+  color: #fff;
+  text-align: center;
+  line-height: 30px;
+  margin-right: 5px;
+  background-color: #1e1e3a;
+}
+
+.registration-form__label .form__box {
+  width: 80%;
+  height: 30px;
+  color: #fff;
+  text-align: center;
+  line-height: 30px;
+  background-color: #2e2e55;
+
+  input {
+    width: 30%;
+    height: 23px;
+    float: left;
+
+    border: none;
+    border-radius: 3px;
+    background: #12122D;
+    color: #ffffff;
+    
+    margin-left: 2px;
+    margin-top: 2.5px;
+  }
+
+  p {
+    font-size: 12px;
+    float: left;
+    margin-left: 10px;
+  }
+}
+
+.registration-form__label .form__box-gender {
+  width: 80%;
+  height: 30px;
+  color: #fff;
+  line-height: 30px;
+  background-color: #2e2e55;
+
+  input {
+    width: 3%;
+    height: 19px;
+    margin-left: 2px;
+    margin-top: 5px;
+  }
+}
+
+.registration-form__label .form__box-birth_date {
+  width: 80%;
+  height: 30px;
+  color: #fff;
+  text-align: center;
+  line-height: 30px;
+  background-color: #2e2e55;
+
+  display: flex;
+
+  p {
+    width: 30px;
+    text-align: center;
+  }
+
+  input {
+    width: 15%;
+    height: 26px;
+    float: left;
+
+    border-radius: 3px;
+    border: none;
+    color: #fff;
+    background-color: #12122D;
+    margin-left: 2px;
+    margin-top: 2.25px;
+  }
+}
+
+.content-registration .registration-form__submit {
+  width: 30%;
+  height: 40px;
+  margin: 0 auto;
+  margin-top: 20px;
+
+  input {
+    width: 100%;
+    height: 100%;
+    font-size: 20px;
+    line-height: 10px;
+    color: #fff;
+
+    border-color: #425a92;
+    border: none;
+    background-color: #1e1e3a;
+  }
+}
+
+.content-registration .registration-form__submit > input:hover {
+  background-color: #0D0D4D;
+  cursor: pointer;
+}
+
+/*                   ///////以下は編集画面////////                  */
+
+.content-edit {
+  width: 85%;
+  margin: 0 auto;
+}
+
+.content-edit .content-header {
+  width: 20%;
+  height: 40px;
+  background-color: #1e1e3a;
+  border-radius: 5px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+.content-edit .content-header h2 {
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  line-height: 40px;
+}
+
+
+
+.edit-form__label {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  margin-top: 5px;
+}
+
+.edit-form__label > h3 {
+  width: 20%;
+  height: 30px;
+  color: #fff;
+  text-align: center;
+  line-height: 30px;
+  margin-right: 5px;
+  background-color: #1e1e3a;
+}
+
+.edit-form__label .form__box {
+  width: 80%;
+  height: 30px;
+  color: #fff;
+  text-align: center;
+  line-height: 30px;
+  background-color: #2e2e55;
+
+  input {
+    width: 30%;
+    height: 23px;
+    float: left;
+
+    border: none;
+    border-radius: 3px;
+    background: #12122D;
+    color: #ffffff;
+    
+    margin-left: 2px;
+    margin-top: 2.5px;
+  }
+
+  p {
+    font-size: 12px;
+    float: left;
+    margin-left: 10px;
+  }
+}
+
+.edit-form__label .form__box-gender {
+  width: 80%;
+  height: 30px;
+  color: #fff;
+  line-height: 30px;
+  background-color: #2e2e55;
+
+  input {
+    width: 3%;
+    height: 19px;
+    margin-left: 2px;
+    margin-top: 5px;
+  }
+}
+
+.edit-form__label .form__box-birth_date {
+  width: 80%;
+  height: 30px;
+  color: #fff;
+  text-align: center;
+  line-height: 30px;
+  background-color: #2e2e55;
+
+  display: flex;
+
+  p {
+    width: 30px;
+    text-align: center;
+  }
+
+  input {
+    width: 15%;
+    height: 26px;
+    float: left;
+
+    border-radius: 3px;
+    border: none;
+    color: #fff;
+    background-color: #12122D;
+    margin-left: 2px;
+    margin-top: 2.25px;
+  }
+}
+
+.content-edit .edit-form__submit {
+  width: 30%;
+  height: 40px;
+  margin: 0 auto;
+  margin-top: 20px;
+
+  input {
+    width: 100%;
+    height: 100%;
+    font-size: 20px;
+    line-height: 10px;
+
+    border-color: #425a92;
+    border: none;
+    color: #fff;
+    background-color: #1e1e3a;
+  }
+}
+
+.content-edit .edit-form__submit > input:hover {
+  background-color: #0D0D4D;
+  cursor: pointer;
+}
+
+/*                   ///////以下は削除画面////////                  */
+
+.content-delete {
+  width: 85%;
+  margin: 0 auto;
+}
+
+.content-delete .content-header {
+  width: 20%;
+  height: 40px;
+  background-color: #691313;
+  border-radius: 5px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+.content-delete .content-header h2 {
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  line-height: 40px;
+}
+
+
+
+.delete-form__label {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  margin-top: 5px;
+}
+
+.delete-form__label > h3 {
+  width: 20%;
+  height: 30px;
+  color: #fff;
+  text-align: center;
+  line-height: 30px;
+  margin-right: 5px;
+  background-color: #1e1e3a;
+}
+
+.delete-form__label .form__box {
+  width: 80%;
+  height: 30px;
+  color: #fff;
+  text-align: center;
+  line-height: 30px;
+  background-color: #2e2e55;
+
+  input {
+    width: 30%;
+    height: 23px;
+    float: left;
+
+    border: none;
+    border-radius: 3px;
+    background: #12122D;
+    color: #686767;
+    
+    margin-left: 2px;
+    margin-top: 2.5px;
+  }
+
+  p {
+    font-size: 12px;
+    float: left;
+    margin-left: 10px;
+  }
+}
+
+.delete-form__label .form__box-gender {
+  width: 80%;
+  height: 30px;
+  color: #686767;
+  line-height: 30px;
+  background-color: #2e2e55;
+
+  input {
+    width: 3%;
+    height: 19px;
+    margin-left: 2px;
+    margin-top: 5px;
+  }
+}
+
+.delete-form__label .form__box-birth_date {
+  width: 80%;
+  height: 30px;
+  color: #fff;
+  text-align: center;
+  line-height: 30px;
+  background-color: #2e2e55;
+
+  display: flex;
+
+  p {
+    width: 30px;
+    text-align: center;
+  }
+
+  input {
+    width: 15%;
+    height: 26px;
+    float: left;
+
+    border-radius: 3px;
+    border: none;
+    color: #686767;
+    background-color: #12122D;
+    margin-left: 2px;
+    margin-top: 2.25px;
+  }
+}
+
+.content-delete .delete-form__submit {
+  width: 30%;
+  height: 40px;
+  margin: 0 auto;
+  margin-top: 20px;
+
+  input {
+    width: 100%;
+    height: 100%;
+    font-size: 20px;
+    line-height: 10px;
+
+    border-color: #425a92;
+    border: none;
+    color: #fff;
+    background-color: #1e1e3a;
+  }
+}
+
+.content-delete .delete-form__submit > input:hover {
+  background-color: #691313;
+  cursor: pointer; 
+}
+
+
+.error-message {
+  width: 79%;
+  justify-content: end;
+  color: red;
+  margin-top: 5px;
+}
+
+.error-box  {
+  display: flex;
+  justify-content: flex-end;
+}
