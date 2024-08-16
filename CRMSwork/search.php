@@ -11,20 +11,17 @@
 <body>
 <?php
   session_start();
-  //クラス
+
   require_once dirname(__FILE__) . '/model/CustomerHandler.php';
   require_once dirname(__FILE__) . '/model/CompanyHandler.php';
   $search = new CustomerHandler();
   $cv = new CompanyHandler();
-  //クラス
 
   $customers = isset($_SESSION['search_results']) ? $_SESSION['search_results'] : [];
   $getE = isset($_SESSION['search_data']) ? $_SESSION['search_data'] : [];
 
-  //所属会社一覧表示用
   $companies = $cv->getCompany();
 
-  //一覧全表示用
   if (empty($customers)) {
   $customers = $search->search();
   }
@@ -34,7 +31,6 @@
     $companyMap[$company["company_id"]] = $company["company"];
   }
 
-  //検索結果無しメッセージ用
   $message = isset($_SESSION['search_message']) ? $_SESSION['search_message'] : '';
   unset($_SESSION['search_message']);
   unset($_SESSION['search_data']);

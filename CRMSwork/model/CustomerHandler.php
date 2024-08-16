@@ -4,6 +4,7 @@
 
   class CustomerHandler extends Model {
     protected $table = 'customers';
+    protected $primary = 'customers_id';
 
     public function search($e = []) {
       $conditions = [];
@@ -44,7 +45,7 @@
       if (!empty($conditions)) {
         $sql .= " WHERE " . implode(" AND ", $conditions);
       } else {
-        $sql .= " WHERE deleted_at IS NULL ORDER BY customers_id ASC ";
+        $sql .= " WHERE deleted_at IS NULL ORDER BY {$this->primary} ASC ";
         return $this->query($sql);
         exit;
       }
@@ -52,10 +53,41 @@
       return $this->query($sql, $params);
     }
 
+    //親クラスへ持っていける
+    public function findById($e) {
+
+      $sql = "SELECT * FROM {$this->table} WHERE {$this->primary} = ? AND deleted_at IS NULL ";
+      return $this->query($sql, [$e]);
+    }
+
     public function insert($e) {
 
       $sql = "INSERT INTO {$this->table} (name, name_kana, tel, mail, gender, birth_date, company_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
       return $this->execute($sql, $e);
     }
+
+    //親クラスへ持っていける
+    public function delete($e) {
+
+      $sql = "UPDATE {$this->table} SET deleted_at = NOW() WHERE {$this->primary} = ?";
+      return $this->execute($sql, [$e]);
+    }
+
+    public function edit($e) {
+
+      $sql = "UPDATE {$this->table} 
+      SET 
+          name = ?, 
+          name_kana = ?,
+          tel = ?,
+          mail = ?,
+          gender = ?,
+          birth_date = ?,
+          company_id = ?,
+          update_at = NOW()
+      WHERE {$this->primary} = ?";
+      return $this->execute($sql, $e);
+    }
+
   }
 ?>

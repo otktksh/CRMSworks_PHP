@@ -10,37 +10,19 @@
 </head>
 <body>
 <?php
-  const DB_HOST = "mysql:dbname=crms_db;host=localhost;charset=utf8";
-  const DB_USER = "root";
-  const DB_PASSWORD = "";
+  require_once dirname(__FILE__) . '/model/CustomerHandler.php';
+  require_once dirname(__FILE__) . '/model/CompanyHandler.php';
 
-  try{
-    $pdo = new PDO(DB_HOST, DB_USER, DB_PASSWORD);
-    echo "接続成功";
+  $findId = new CustomerHandler();
+  $cv = new CompanyHandler();
 
-  } catch(PDOException $e) {
-    echo "接続失敗" . $e->getMessage() . "\n";
-    exit();
-  };
+  $id = $_POST['id'];
 
+  $companies = $cv->getCompany();
 
-  //所属会社一覧表示用
-  $sql = "SELECT company_id, company FROM companies";
-  $stmt = $pdo->query($sql);
-  $companies = $stmt->fetchAll(PDO::FETCH_ASSOC);
-  //←
-
-  //一覧からのid送信確認用 正直いらんかも、念のため
-  $id = $_POST["id"] ?? null;
-  //←
-
-  //customersテーブルのcustomers_idと$idの数値を比較してdeleted_atに何も入ってないものを表示
-  $sql = "SELECT * FROM customers WHERE customers_id = '$id' AND deleted_at IS NULL ";
-  $stmt = $pdo->query($sql);
-  $customer = $stmt->fetch(PDO::FETCH_ASSOC);
-  //←
-
-
+  $customer = $findId->findById($id);
+  $customer = $customer[0];
+  //配列が多重になってインデックス0に全て格納されてるから、0自体を代入しなおす
 ?>
   <div class="main-wrapper">
 

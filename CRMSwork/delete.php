@@ -10,28 +10,18 @@
 </head>
 <body>
 <?php
-  const DB_HOST = "mysql:dbname=crms_db;host=localhost;charset=utf8";
-  const DB_USER = "root";
-  const DB_PASSWORD = "";
+  require_once dirname(__FILE__) . '/model/CompanyHandler.php';
+  require_once dirname(__FILE__) . '/model/CustomerHandler.php';
 
-  try{
-    $pdo = new PDO(DB_HOST, DB_USER, DB_PASSWORD);
-    echo "接続成功";
+  $cv = new CompanyHandler();
+  $findId = new CustomerHandler();
 
-  } catch(PDOException $e) {
-    echo "接続失敗" . $e->getMessage() . "\n";
-    exit();
-  };
+  $id = $_POST['id'];
 
-  $sql = "SELECT company_id, company FROM companies";
-  $stmt = $pdo->query($sql);
-  $companies = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  $companies = $cv->getCompany();
+  $customer = $findId->findById($id);
 
-  $id = $_POST["id"] ?? null;
-
-  $sql = "SELECT * FROM customers WHERE customers_id = '$id' AND deleted_at IS NULL ";
-  $stmt = $pdo->query($sql);
-  $customer = $stmt->fetch(PDO::FETCH_ASSOC);
+  $customer = $customer[0];
 ?>
   <div class="main-wrapper">
 

@@ -12,18 +12,6 @@
     $_POST['calendar'],
     $_POST['company']
   ];
-
-  // $name = $_POST['name'];
-  // $nameKana = $_POST['name_kana'];
-  // $mail = $_POST['mail'];
-  // $tel = $_POST['tel'];
-  // $gender = ($_POST['gender'] === '0') ? 0 : 1;
-  // $birthDate = $_POST['calendar'];
-  // $company = $_POST['company'];
-
-  // $sql = "INSERT INTO customers (name, name_kana, mail, tel, gender, birth_date, company_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
-  // $stmt = $pdo->prepare($sql);
-  // $result = $stmt->execute($a);
   
   $results = $insert->insert($a);
 

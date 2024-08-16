@@ -6,28 +6,17 @@
 
   $_SESSION['search_data'] = $_GET;
 
-  // if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $results = $search->search($_GET);
+  $results = $search->search($_GET);
 
-    if (empty($results)) {
-      $_SESSION['search_message'] = "データが見つかりませんでした。";
-      $results = $search->search();
-    } else {
-      $_SESSION['search_message'] = "";
-    }
+  if (empty($results)) {
+    $_SESSION['search_message'] = "データが見つかりませんでした。";
+    $results = $search->search();
+  } else {
+    $_SESSION['search_message'] = "";
+  }
 
-    $_SESSION['search_results'] = $results;
+  $_SESSION['search_results'] = $results;
 
-    header("Location: ../search.php");
-    exit();
-  // } else {  
-    // $customers = $search->getAll();
+  header("Location: ../search.php");
 
-    // $_SESSION['search_results'] = $customers;
-    
-    // header("Location: ../search.php");
-    // exit();
-  // }
-
-  
 ?>
