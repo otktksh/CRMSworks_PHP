@@ -10,11 +10,38 @@
 </head>
 <body>
   <?php
+  require_once dirname(__FILE__) . '/model/CustomerHandler.php';
   require_once dirname(__FILE__) . '/model/CompanyHandler.php';
 
+  use \Model\CustomerHandler;
+  use \Model\CompanyHandler;
+
+  $insert = new CustomerHandler();
   $cv = new CompanyHandler();
+
+  if ($_POST) {
+    $a = [
+      $_POST['name'],
+      $_POST['name_kana'],
+      $_POST['mail'],
+      $_POST['tel'],
+      ($_POST['gender'] === '0') ? 0 : 1,
+      $_POST['calendar'],
+      $_POST['company']
+    ];
+  
+    $results = $insert->insert($a);
+  
+    if ($results) {
+      header("Location: ./search.php");
+      exit();
+    } else {
+      $message = "データの登録に失敗しました。";
+    }
+  }
+
   $companies = $cv->getCompany();
-  ?>
+?>
   <div class="main-wrapper">
 <!-- ヘッダー -->
     <header class="main-header">
@@ -36,7 +63,10 @@
         <div class="content-header">
           <h2>顧客登録</h2>
         </div>
-        <form id="registration-form" action="./php/register_ex.php" method="post">
+        <?php if (!empty($message)): ?>
+          <p class="not-results" style="text-align: center; margin-top: 10px; margin-bottom: 15px; color: red;"><?= htmlspecialchars($message); ?></p>
+        <?php endif; ?>
+        <form id="registration-form" action="./registration.php" method="post">
           <div class="registration-form__label">
             <h3>顧客名</h3>
             <div class="form__box">

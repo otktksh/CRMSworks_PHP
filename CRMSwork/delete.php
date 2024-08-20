@@ -13,15 +13,29 @@
   require_once dirname(__FILE__) . '/model/CompanyHandler.php';
   require_once dirname(__FILE__) . '/model/CustomerHandler.php';
 
+  use \Model\CustomerHandler;
+  use \Model\CompanyHandler;
+
+  $delController = new CustomerHandler();
   $cv = new CompanyHandler();
-  $findId = new CustomerHandler();
 
   $id = $_POST['id'];
 
-  $companies = $cv->getCompany();
-  $customer = $findId->findById($id);
+  if (isset($_POST[("submit_delete")])) {
+    $result = $delController->delete($id);
 
-  $customer = $customer[0];
+    if ($result) {
+      header("Location: ./search.php");
+      exit();
+    } else {
+      $message = "データの削除に失敗しました。";
+    }
+  }
+
+  $companies = $cv->getCompany();
+  $customer = $delController->findById($id)[0];
+  //これで取得した配列のインデックス0の内容が全て入る
+  //元 $customer = $customer[0];
 ?>
   <div class="main-wrapper">
 
@@ -43,8 +57,10 @@
         <div class="content-header">
           <h2>顧客削除</h2>
         </div>
-
-        <form action="./php/delete_ex.php" onsubmit="confirm_delete()" method="post">
+        <?php if (!empty($message)): ?>
+          <p class="not-results" style="text-align: center; margin-top: 10px; margin-bottom: 15px; color: red;"><?= htmlspecialchars($message); ?></p>
+        <?php endif; ?>
+        <form action="./delete.php" onsubmit="confirm_delete()" method="post">
           <div class="delete-form__label">
             <h3>顧客名</h3>
             <div class="form__box">
@@ -101,7 +117,7 @@
           </div>
           <div class="delete-form__submit">
             <input type="hidden" name="id" value="<?= htmlspecialchars($id); ?>">
-            <input type="submit" value='✖削除'>
+            <input type="submit" name="submit_delete" value='✖削除'>
           </div>
         </form>
       </div>

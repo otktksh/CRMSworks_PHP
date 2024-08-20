@@ -9,33 +9,29 @@
   <meta name="description" content="【課題用】顧客管理システム 検索ページ">
 </head>
 <body>
-<?php
-  session_start();
 
+<?php
   require_once dirname(__FILE__) . '/model/CustomerHandler.php';
   require_once dirname(__FILE__) . '/model/CompanyHandler.php';
+
+  use \Model\CustomerHandler;
+  use \Model\CompanyHandler;
+
   $search = new CustomerHandler();
   $cv = new CompanyHandler();
 
-  $customers = isset($_SESSION['search_results']) ? $_SESSION['search_results'] : [];
-  $getE = isset($_SESSION['search_data']) ? $_SESSION['search_data'] : [];
+  $getE = $_GET;
+  $results = $search->search($getE);
 
+  if (empty($results)){
+    $message = "該当するデータが見つかりませんでした。";
+  }
+  
   $companies = $cv->getCompany();
 
-  if (empty($customers)) {
-  $customers = $search->search();
-  }
-
-  $companyMap = [];
-  foreach ($companies as $company) {
-    $companyMap[$company["company_id"]] = $company["company"];
-  }
-
-  $message = isset($_SESSION['search_message']) ? $_SESSION['search_message'] : '';
-  unset($_SESSION['search_message']);
-  unset($_SESSION['search_data']);
-  unset($_SESSION['search_results']);
-  ?>
+  //array関数を使ってコンパクトに連想配列に変換
+  $companyMap = array_column($companies, "company", "company_id");
+?>
 
   <div class="main-wrapper">
 
@@ -57,7 +53,7 @@
         <div class="content-header">
           <h2>検索条件</h2>
         </div>
-        <form id="search-form" action="./php/search_ex_copy.php" method="get">
+        <form id="search-form" action="./search.php" method="get">
           <div class="search-form__label">
             <h3>顧客名</h3>
             <div class="form__box">
@@ -149,7 +145,7 @@
               </table>
             </div>
             <table class="list-table">
-              <?php foreach ($customers as $customer): ?>
+              <?php foreach ($results as $customer): ?>
               <tr class="list-table-child1">
                 <td class="table-id"><?= htmlspecialchars($customer["customers_id"]); ?></td>
                 <td class="table-name"><?= htmlspecialchars($customer["name"]); ?><br><?= htmlspecialchars($customer["name_kana"]); ?></td>
@@ -168,7 +164,7 @@
                     <a href="#" onclick="this.parentNode.submit();">削除</a>
                   </form>
                 </td>
-                <!-- 8/6 17:50 編集、削除ボタンに対してidを紐づけて、遷移先のファイルでSELECTで表示とUPDATEを行えばいい -->
+                <!-- 8/19 取り消し 8/6 17:50 編集、削除ボタンに対してidを紐づけて、遷移先のファイルでSELECTで表示とUPDATEを行えばいい -->
               </tr>
               <?php endforeach; ?>
             </table>

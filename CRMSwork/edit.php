@@ -13,15 +13,38 @@
   require_once dirname(__FILE__) . '/model/CustomerHandler.php';
   require_once dirname(__FILE__) . '/model/CompanyHandler.php';
 
-  $findId = new CustomerHandler();
+  use \Model\CustomerHandler;
+  use \Model\CompanyHandler;
+
+  $editController = new CustomerHandler();
   $cv = new CompanyHandler();
 
   $id = $_POST['id'];
 
-  $companies = $cv->getCompany();
+  if (isset($_POST[("submit_edit")])) {
 
-  $customer = $findId->findById($id);
-  $customer = $customer[0];
+    $a = [
+      $_POST["name"],
+      $_POST["name_kana"],
+      $_POST["mail"],
+      $_POST["tel"],
+      $_POST["gender"],
+      $_POST["calendar"],
+      $_POST["company"],
+    ];
+
+    $result = $editController->edit($a, $id);
+
+    if ($result) {
+      header("Location: ./search.php");
+      exit();
+    } else {
+      $message = "データの編集に失敗しました。";
+    }
+  }
+
+  $companies = $cv->getCompany();
+  $customer = $editController->findById($id)[0];
   //配列が多重になってインデックス0に全て格納されてるから、0自体を代入しなおす
 ?>
   <div class="main-wrapper">
@@ -44,7 +67,10 @@
         <div class="content-header">
           <h2>顧客編集</h2>
         </div>
-        <form action="./php/edit_ex.php" onsubmit="confirm_edit()" method="post">
+        <?php if (!empty($message)): ?>
+          <p class="not-results" style="text-align: center; margin-top: 10px; margin-bottom: 15px; color: red;"><?= htmlspecialchars($message); ?></p>
+        <?php endif; ?>
+        <form action="./edit.php" onsubmit="confirm_edit()" method="post">
           <div class="edit-form__label">
             <h3>顧客名</h3>
             <div class="form__box">
@@ -101,7 +127,7 @@
           </div>
           <div class="edit-form__submit">
             <input type="hidden" name="id" value="<?= htmlspecialchars($id); ?>">
-            <input type="submit" value='🖊編集'>
+            <input type="submit" name="submit_edit" value='🖊編集'>
           </div>
         </form>
       </div>
